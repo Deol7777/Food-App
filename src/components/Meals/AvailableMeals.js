@@ -1,36 +1,63 @@
-import Card from '../UI/Card';
-import MealItem from './MealItem/MealItem';
-import classes from './AvailableMeals.module.css';
+import Card from "../UI/Card";
+import MealItem from "./MealItem/MealItem";
+import classes from "./AvailableMeals.module.css";
+import { useEffect, useState } from "react";
 
-const DUMMY_MEALS = [
-  {
-    id: "m2",
-    name: "Pizza",
-    description: "Delicious pizza with fresh toppings",
-    price: 12.99,
-  },
-  {
-    id: "m3",
-    name: "Burger",
-    description: "Juicy beef patty with all the fixings",
-    price: 8.99,
-  },
-  {
-    id: "m4",
-    name: "Taco",
-    description: "Spicy and savory with fresh guacamole",
-    price: 4.99,
-  },
-  {
-    id: "m5",
-    name: "Pad Thai",
-    description: "Classic Thai dish with rice noodles and peanuts",
-    price: 10.99,
-  },
-];
+
 
 const AvailableMeals = () => {
-  const mealsList = DUMMY_MEALS.map((meal) => (
+
+const[meals, setMeals] = useState([]);
+const [isLoading, setIsLoading] = useState(true);
+  const fetchMealsHandler = async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch(
+        "https://food-order-react-929bb-default-rtdb.firebaseio.com/meals.j"
+      );
+      if (!response.ok) {
+        throw new Error("Something went wrong!");
+      }
+
+      const responseData = await response.json();
+
+      const loadedMeals = [];
+
+      for (const key in responseData) {
+        loadedMeals.push({
+          id: key,
+          name: responseData[key].name,
+          description: responseData[key].description,
+          price: responseData[key].price,
+        });
+      }
+
+      console.log(loadedMeals);
+      setMeals(loadedMeals);
+      setIsLoading(false);
+
+    } catch (error) {
+      setIsLoading(false);
+      console.log(error.message);
+    }
+  }
+
+  useEffect(() =>
+  {
+    fetchMealsHandler();
+  }, [])
+
+  if(isLoading){
+    console.log("Loading");
+    return (
+      <section className={classes.MealsLoading}>
+        <p>Loading...</p>;
+      </section>
+    );
+  }
+
+
+  const mealsList = meals.map((meal) => (
     <MealItem
       id={meal.id}
       key={meal.id}

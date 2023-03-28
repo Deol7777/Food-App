@@ -9,11 +9,12 @@ const AvailableMeals = () => {
 
 const[meals, setMeals] = useState([]);
 const [isLoading, setIsLoading] = useState(true);
+const [ httpError, sethttpErrror] = useState(false);
   const fetchMealsHandler = async () => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        "https://food-order-react-929bb-default-rtdb.firebaseio.com/meals.j"
+        "https://food-order-react-929bb-default-rtdb.firebaseio.com/meals.json"
       );
       if (!response.ok) {
         throw new Error("Something went wrong!");
@@ -38,6 +39,7 @@ const [isLoading, setIsLoading] = useState(true);
 
     } catch (error) {
       setIsLoading(false);
+      sethttpErrror(error.message);
       console.log(error.message);
     }
   }
@@ -51,10 +53,20 @@ const [isLoading, setIsLoading] = useState(true);
     console.log("Loading");
     return (
       <section className={classes.MealsLoading}>
-        <p>Loading...</p>;
+        <p>Loading...</p>
       </section>
     );
   }
+   if (httpError) {
+
+     return (
+       <section className={classes.MealsError}>
+         <p>{httpError}</p>
+       </section>
+     );
+   }
+
+
 
 
   const mealsList = meals.map((meal) => (

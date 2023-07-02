@@ -12,6 +12,7 @@ const cartReducer = (state, action) => {
     case "ADD":
       const updatedTotalAmount =
         state.totalAmount + action.item.price * action.item.amount;
+        console.log(updatedTotalAmount);
 
       const existingCartItemIndex = state.items.findIndex(
         (item) => item.id === action.item.id
@@ -87,7 +88,7 @@ const CartProvider = (props) => {
   };
   const cartContextt = {
     items: cartState.items,
-    totalAmount: 0,
+    totalAmount: cartState.totalAmount,
     addItem: addItemToCartHandler,
     removeItem: removeItemFromCartHandler,
     clearCart: clearCartHandler

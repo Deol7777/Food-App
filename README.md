@@ -1,3 +1,12 @@
+### 🔧 Firebase Setup
+
+1. Create a `.env` file in the root directory.
+2. Paste your Firebase config like this:
+
+REACT_APP_FIREBASE_DB_URL="$YOUR_FIREBASE_DB_URL"
+
+3. Run `npm install` and `npm start`
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

@@ -13,8 +13,12 @@ const [ httpError, sethttpErrror] = useState(false);
   const fetchMealsHandler = async () => {
     setIsLoading(true);
     try {
+      const firebaseUrl = process.env.REACT_APP_FIREBASE_DB_URL;
+      if (!firebaseUrl) {
+        throw new Error("Firebase DB URL is not defined in environment variables.");
+      }
       const response = await fetch(
-        "https://food-order-react-929bb-default-rtdb.firebaseio.com/meals.json"
+        `${firebaseUrl}/meals.json`
       );
       if (!response.ok) {
         throw new Error("Something went wrong!");

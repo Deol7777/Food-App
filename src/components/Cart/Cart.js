@@ -35,7 +35,7 @@ const Cart = (props) => {
     };
     setIsSubmitting(true);
     await fetch(
-      "https://food-order-react-929bb-default-rtdb.firebaseio.com/orders.json",
+      `${process.env.REACT_APP_FIREBASE_DB_URL}/orders.json`,
       {
         method: "Post",
         body: JSON.stringify(finalData),

@@ -1,3 +1,12 @@
+### 🔧 Firebase Setup
+
+1. Create a `.env` file in the root directory.
+2. Paste your Firebase config like this:
+
+REACT_APP_FIREBASE_DB_URL="$YOUR_FIREBASE_DB_URL"
+
+3. Run `npm install` and `npm start`
+
 # 🍔 Food Order App
 
 A modern, responsive food ordering application built with React. Order your favorite meals with just a few clicks and enjoy hassle-free delivery right to your doorstep!
@@ -72,15 +81,6 @@ Runs the app in development mode. The page will reload when you make changes.
 - **Cart**: Modal displaying cart contents and checkout options
 - **MealItem**: Individual meal component with add to cart functionality
 
-## 🚀 Deployment
-
-The app is configured for easy deployment to GitHub Pages:
-
-```bash
-npm run deploy
-```
-
-This will build the application and deploy it to the `gh-pages` branch.
 
 ## 📄 License
 
